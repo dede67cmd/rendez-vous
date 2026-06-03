@@ -2,34 +2,63 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Choisis une activité ❤️</title>
+<title>Choisis ❤️</title>
 
 <style>
 body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
     font-family:Arial;
+    background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+}
+
+.card{
+    background:white;
+    padding:40px;
+    border-radius:20px;
     text-align:center;
-    margin-top:100px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    width:300px;
+}
+
+h1{
+    margin-bottom:20px;
 }
 
 button{
-    display:block;
-    margin:20px auto;
-    padding:15px 30px;
-    font-size:20px;
+    width:100%;
+    margin:10px 0;
+    padding:12px;
+    font-size:16px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    transition:0.2s;
+    background:#ff4d6d;
+    color:white;
+}
+
+button:hover{
+    transform:scale(1.05);
 }
 </style>
 </head>
 
 <body>
 
-<h1>Super ! ❤️</h1>
-<h2>Qu'est-ce qui te ferait plaisir ?</h2>
+<div class="card">
+    <h1>Super ❤️</h1>
+    <p>On fait quoi ?</p>
 
-<button>🍦 Glace</button>
-<button>☕ Café</button>
-<button>🎬 Cinéma</button>
-<button>🚶 Balade</button>
-<button>🍕 Restaurant</button>
+    <button>🍦 Glace en ville</button>
+    <button>☕ Café chill</button>
+    <button>🎬 Cinéma</button>
+    <button>🚶 Balade</button>
+    <button>🍕 Restaurant</button>
+</div>
 
 </body>
 </html>
