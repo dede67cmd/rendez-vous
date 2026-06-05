@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Choisis ❤️</title>
+<title>Activités ❤️</title>
 
 <style>
 body{
@@ -21,7 +21,7 @@ body{
     border-radius:20px;
     text-align:center;
     box-shadow:0 10px 30px rgba(0,0,0,0.2);
-    width:300px;
+    width:320px;
 }
 
 h1{
@@ -53,12 +53,19 @@ button:hover{
     <h1>Super ❤️</h1>
     <p>On fait quoi ?</p>
 
-    <button>🍦 Glace en ville</button>
-    <button>☕ Café chill</button>
-    <button>🎬 Cinéma</button>
-    <button>🚶 Balade</button>
-    <button>🍕 Restaurant</button>
+    <button onclick="choix('🍦 Glace en ville')">🍦 Glace en ville</button>
+    <button onclick="choix('☕ Café chill')">☕ Café chill</button>
+    <button onclick="choix('🎬 Cinéma')">🎬 Cinéma</button>
+    <button onclick="choix('🚶 Balade')">🚶 Balade</button>
+    <button onclick="choix('🍕 Restaurant')">🍕 Restaurant</button>
 </div>
+
+<script>
+function choix(activite){
+    localStorage.setItem("activite", activite);
+    window.location.href = "date.html";
+}
+</script>
 
 </body>
 </html>
