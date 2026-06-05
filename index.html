@@ -7,9 +7,9 @@
 
 <style>
 .card{
-    position:relative; /* IMPORTANT */
-    overflow:hidden;
+    position:relative;
 }
+
 #non{
     position:absolute;
 }
@@ -32,37 +32,16 @@
 const non = document.getElementById("non");
 const card = document.getElementById("card");
 
-let targetX = 0;
-let targetY = 0;
-let currentX = 0;
-let currentY = 0;
-
-function init(){
+function placeInitial(){
     const c = card.getBoundingClientRect();
     const b = non.getBoundingClientRect();
 
-    // POSITION INIT LOGIQUE (dans la carte)
-    currentX = (c.width / 2) - (b.width / 2);
-    currentY = (c.height / 2) + 30;
+    // position propre SOUS le bouton Oui
+    const x = (c.width / 2) - (b.width / 2);
+    const y = 120; // <-- force sous le bouton Oui (stable)
 
-    targetX = currentX;
-    targetY = currentY;
-
-    non.style.left = currentX + "px";
-    non.style.top = currentY + "px";
-}
-
-function animate(){
-    // ⚡ PLUS RAPIDE
-    const speed = 0.25;
-
-    currentX += (targetX - currentX) * speed;
-    currentY += (targetY - currentY) * speed;
-
-    non.style.left = currentX + "px";
-    non.style.top = currentY + "px";
-
-    requestAnimationFrame(animate);
+    non.style.left = x + "px";
+    non.style.top = y + "px";
 }
 
 function teleport(){
@@ -74,12 +53,15 @@ function teleport(){
     const maxX = c.width - b.width - padding;
     const maxY = c.height - b.height - padding;
 
-    // IMPORTANT : coordonnées RELATIVES à la carte
-    targetX = padding + Math.random() * maxX;
-    targetY = padding + Math.random() * maxY;
+    // 🚀 TP INSTANTANÉ
+    const x = padding + Math.random() * maxX;
+    const y = padding + Math.random() * maxY;
+
+    non.style.left = x + "px";
+    non.style.top = y + "px";
 }
 
-// triggers
+// événements
 non.addEventListener("mouseenter", teleport);
 non.addEventListener("click", (e) => {
     e.preventDefault();
@@ -90,9 +72,7 @@ non.addEventListener("touchstart", (e) => {
     teleport();
 });
 
-init();
-animate();
-window.addEventListener("resize", init);
+placeInitial();
 </script>
 
 </body>
