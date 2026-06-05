@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Activités ❤️</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:Arial;
+    background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+}
+
+.card{
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    width:320px;
+}
+
+h1{
+    margin-bottom:20px;
+}
+
+button{
+    width:100%;
+    margin:10px 0;
+    padding:12px;
+    font-size:16px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    transition:0.2s;
+    background:#ff4d6d;
+    color:white;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>Super ❤️</h1>
+    <p>On fait quoi ?</p>
+
+    <button onclick="choix('🍦 Glace en ville')">🍦 Glace en ville</button>
+    <button onclick="choix('☕ Café chill')">☕ Café chill</button>
+    <button onclick="choix('🎬 Cinéma')">🎬 Cinéma</button>
+    <button onclick="choix('🚶 Balade')">🚶 Balade</button>
+    <button onclick="choix('🍕 Restaurant')">🍕 Restaurant</button>
+</div>
+
+<script>
+function choix(activite){
+    localStorage.setItem("activite", activite);
+    window.location.href = "date.html";
+}
+</script>
+
+</body>
+</html>
