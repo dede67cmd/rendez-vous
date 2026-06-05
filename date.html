@@ -9,7 +9,7 @@
 <body>
 
 <div class="card">
-    <h1>📅 On fixe le rendez-vous</h1>
+    <h1>📅 Fixe le rendez-vous</h1>
 
     <p>Activité : <b id="act"></b></p>
 
@@ -22,13 +22,16 @@
 </div>
 
 <script>
-document.getElementById("act").innerText =
-    localStorage.getItem("activity") || "Non définie";
+const WEBHOOK_URL = "COLLE_ICI_TON_WEBHOOK_DISCORD"; 
+// 👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆
+// ⚠️ C’EST ICI QUE TU METS TON LIEN DISCORD
+
+const activity = localStorage.getItem("activity");
+document.getElementById("act").innerText = activity || "Non définie";
 
 function validate(){
     const d = document.getElementById("date").value;
     const t = document.getElementById("time").value;
-    const act = localStorage.getItem("activity");
 
     if(!d || !t){
         document.getElementById("msg").innerText =
@@ -36,12 +39,25 @@ function validate(){
         return;
     }
 
+    // 🔥 ENVOI DISCORD
+    fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            content:
+`💖 Nouveau rendez-vous !
+🎯 Activité : ${activity}
+📅 Date : ${d}
+⏰ Heure : ${t}`
+        })
+    });
+
     document.body.innerHTML = `
         <div style="text-align:center;font-family:Arial">
             <h1>💖 Rendez-vous confirmé !</h1>
-            <p>${act}</p>
+            <p>${activity}</p>
             <p>${d} à ${t}</p>
-            <h2>On a un plan 😎</h2>
+            <h2>Envoyé sur Discord ✔</h2>
         </div>
     `;
 }
