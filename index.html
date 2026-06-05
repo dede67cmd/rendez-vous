@@ -1,3 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Question ❤️</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="card">
+    <h1>Veux-tu sortir avec moi ? ❤️</h1>
+
+    <button class="primary" onclick="location.href='activities.html'">
+        Oui 😍
+    </button>
+
+    <button id="non">Non 😢</button>
+</div>
+
 <script>
 const non = document.getElementById("non");
 
@@ -6,7 +26,8 @@ let targetY = window.innerHeight / 2;
 let currentX = targetX;
 let currentY = targetY;
 
-// animation fluide
+non.style.position = "absolute";
+
 function animate(){
     currentX += (targetX - currentX) * 0.12;
     currentY += (targetY - currentY) * 0.12;
@@ -17,9 +38,6 @@ function animate(){
     requestAnimationFrame(animate);
 }
 
-animate();
-
-// téléportation
 function teleport(){
     const rect = non.getBoundingClientRect();
 
@@ -27,7 +45,6 @@ function teleport(){
     targetY = Math.random() * (window.innerHeight - rect.height);
 }
 
-// déclencheurs
 non.addEventListener("mouseenter", teleport);
 non.addEventListener("click", (e) => {
     e.preventDefault();
@@ -37,4 +54,9 @@ non.addEventListener("touchstart", (e) => {
     e.preventDefault();
     teleport();
 });
+
+animate();
 </script>
+
+</body>
+</html>
