@@ -12,15 +12,26 @@
     <h1>Super ❤️</h1>
     <p>On fait quoi ?</p>
 
-    <button onclick="choose('🍦 Glace')">🍦 Glace</button>
-    <button onclick="choose('☕ Café')">☕ Café</button>
-    <button onclick="choose('🎬 Cinéma')">🎬 Cinéma</button>
-    <button onclick="choose('🚶 Balade')">🚶 Balade</button>
+    <button onclick="choose('🚶 Balade dans Strasbourg')">
+        🚶 Balade dans Strasbourg
+    </button>
+
+    <button onclick="choose('📚 Réviser infin')">
+        📚 Réviser infin
+    </button>
+
+    <button onclick="choose('🍷 Boire un verre')">
+        🍷 Boire un verre
+    </button>
+
+    <button onclick="choose('🏐 Faire du volley')">
+        🏐 Faire du volley
+    </button>
 </div>
 
 <script>
-function choose(a){
-    localStorage.setItem("activity", a);
+function choose(activity){
+    localStorage.setItem("activity", activity);
     location.href = "date.html";
 }
 </script>
