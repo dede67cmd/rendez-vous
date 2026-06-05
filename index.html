@@ -86,6 +86,27 @@ non.addEventListener("pointerdown", (e) => {
     if(count === 5){
         message.innerText = "🥺 dernière chance ?";
     }
+
+    if(count === 10){
+    document.body.innerHTML = `
+        <div style="
+            position:fixed;
+            top:0;
+            left:0;
+            width:100vw;
+            height:100vh;
+            background:black;
+            color:white;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-family:Arial;
+            text-align:center;
+        ">
+            <h1>💔 ...</h1>
+        </div>
+    `;
+}
 });
 
 init();
