@@ -6,14 +6,8 @@
 <link rel="stylesheet" href="style.css">
 
 <style>
-.card{
-    position:relative;
-    overflow:hidden;
-}
-
-#non{
-    position:absolute;
-}
+.card{position:relative;overflow:hidden;}
+#non{position:absolute;}
 </style>
 </head>
 
@@ -33,45 +27,21 @@
 const non = document.getElementById("non");
 const card = document.getElementById("card");
 
-function placeInitial(){
-    const c = card.getBoundingClientRect();
-    const b = non.getBoundingClientRect();
-
-    non.style.left = (c.width/2 - b.width/2) + "px";
-    non.style.top = "120px";
-}
-
 function teleport(){
     const c = card.getBoundingClientRect();
     const b = non.getBoundingClientRect();
 
-    const padding = 20;
-
-    const maxX = c.width - b.width - padding;
-    const maxY = c.height - b.height - padding;
-
-    let x = padding + Math.random() * maxX;
-    let y = padding + Math.random() * maxY;
-
-    // 🚨 évite zone centrale (rend impossible à spam cliquer)
-    const centerX = c.width / 2;
-    const centerY = c.height / 2;
-
-    if(Math.abs(x - centerX) < 80) x += 120;
-    if(Math.abs(y - centerY) < 80) y += 120;
+    const x = Math.random() * (c.width - b.width);
+    const y = Math.random() * (c.height - b.height);
 
     non.style.left = x + "px";
     non.style.top = y + "px";
 }
 
-/* 🚀 IMPORTANT :
-   on déclenche AVANT que le clic soit confirmé */
 non.addEventListener("pointerdown", (e) => {
     teleport();
     e.preventDefault();
 });
-
-placeInitial();
 </script>
 
 </body>
