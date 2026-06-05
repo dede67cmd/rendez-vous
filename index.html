@@ -43,11 +43,17 @@ function initPosition(){
 function teleport(){
     const b = non.getBoundingClientRect();
 
-    const maxX = window.innerWidth - b.width;
-    const maxY = window.innerHeight - b.height;
+    // 📱 zone visible réelle (mobile fix)
+    const vw = window.visualViewport?.width || window.innerWidth;
+    const vh = window.visualViewport?.height || window.innerHeight;
 
-    const x = Math.random() * maxX;
-    const y = Math.random() * maxY;
+    const padding = 10;
+
+    const maxX = vw - b.width - padding;
+    const maxY = vh - b.height - padding;
+
+    const x = padding + Math.random() * maxX;
+    const y = padding + Math.random() * maxY;
 
     non.style.left = x + "px";
     non.style.top = y + "px";
