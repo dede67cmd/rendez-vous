@@ -22,9 +22,7 @@
 </div>
 
 <script>
-const WEBHOOK_URL = "https://discord.com/api/webhooks/1512490099957436636/hDlJN4qKVDQFd5frcq3ZCmSGtZ0jrUwx5gnMnIOiN-nAlB1UVVD86SvXL4D_5nsK0VhG"; 
-// 👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆
-// ⚠️ C’EST ICI QUE TU METS TON LIEN DISCORD
+const WEBHOOK_URL = "COLLE_ICI_TON_WEBHOOK_DISCORD";
 
 const activity = localStorage.getItem("activity");
 document.getElementById("act").innerText = activity || "Non définie";
@@ -39,7 +37,7 @@ function validate(){
         return;
     }
 
-    // 🔥 ENVOI DISCORD
+    // 🔥 envoi Discord
     fetch(WEBHOOK_URL, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
@@ -52,12 +50,13 @@ function validate(){
         })
     });
 
+    // 🎉 écran final (sans mention Discord)
     document.body.innerHTML = `
         <div style="text-align:center;font-family:Arial">
             <h1>💖 Rendez-vous confirmé !</h1>
             <p>${activity}</p>
             <p>${d} à ${t}</p>
-            <h2>Envoyé sur Discord ✔</h2>
+            <h2>On a un plan 😎</h2>
         </div>
     `;
 }
