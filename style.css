@@ -97,3 +97,8 @@ input:focus{
     margin-top:10px;
     color:#444;
 }
+body{
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
