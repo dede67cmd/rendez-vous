@@ -4,13 +4,6 @@
 <meta charset="UTF-8">
 <title>Question ❤️</title>
 <link rel="stylesheet" href="style.css">
-
-<style>
-#non{
-    position:absolute;
-    transform: translateX(-50%);
-}
-</style>
 </head>
 
 <body>
@@ -27,38 +20,49 @@
 
 <script>
 const non = document.getElementById("non");
+const card = document.querySelector(".card");
 const oui = document.querySelector(".primary");
 
+/* 📍 POSITION INIT PROPRE */
 function initPosition(){
-    const r = oui.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const ouiRect = oui.getBoundingClientRect();
+    const nonRect = non.getBoundingClientRect();
 
-    // 📍 centré sous le bouton OUI
-    non.style.left = (r.left + r.width/2) + "px";
-    non.style.top = (r.bottom + 20) + "px";
-}
+    // centre horizontal de la carte
+    const x = (cardRect.width / 2) - (nonRect.width / 2);
 
-function teleport(){
-    const w = window.innerWidth;
-    const h = window.innerHeight;
-
-    const b = non.getBoundingClientRect();
-
-    // 🚀 TP sur TOUT l'écran
-    const x = Math.random() * (w - b.width) + b.width/2;
-    const y = Math.random() * (h - b.height);
+    // sous le bouton OUI (dans la carte)
+    const y = oui.offsetTop + ouiRect.height + 20;
 
     non.style.left = x + "px";
     non.style.top = y + "px";
 }
 
-// ⚡ fuite instantanée
+/* 🚀 TP PARTOUT SUR L’ÉCRAN */
+function teleport(){
+    const b = non.getBoundingClientRect();
+
+    const maxX = window.innerWidth - b.width;
+    const maxY = window.innerHeight - b.height;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    non.style.left = x + "px";
+    non.style.top = y + "px";
+}
+
+/* ⚡ fuite instantanée */
 non.addEventListener("pointerdown", (e) => {
     teleport();
     e.preventDefault();
 });
 
-// init
+/* init */
 initPosition();
+
+/* sécurité resize */
 window.addEventListener("resize", initPosition);
 </script>
 
