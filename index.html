@@ -8,6 +8,7 @@
 <style>
 .card{
     position:relative;
+    overflow:hidden;
 }
 
 #non{
@@ -36,40 +37,38 @@ function placeInitial(){
     const c = card.getBoundingClientRect();
     const b = non.getBoundingClientRect();
 
-    // position propre SOUS le bouton Oui
-    const x = (c.width / 2) - (b.width / 2);
-    const y = 120; // <-- force sous le bouton Oui (stable)
-
-    non.style.left = x + "px";
-    non.style.top = y + "px";
+    non.style.left = (c.width/2 - b.width/2) + "px";
+    non.style.top = "120px";
 }
 
 function teleport(){
     const c = card.getBoundingClientRect();
     const b = non.getBoundingClientRect();
 
-    const padding = 10;
+    const padding = 20;
 
     const maxX = c.width - b.width - padding;
     const maxY = c.height - b.height - padding;
 
-    // 🚀 TP INSTANTANÉ
-    const x = padding + Math.random() * maxX;
-    const y = padding + Math.random() * maxY;
+    let x = padding + Math.random() * maxX;
+    let y = padding + Math.random() * maxY;
+
+    // 🚨 évite zone centrale (rend impossible à spam cliquer)
+    const centerX = c.width / 2;
+    const centerY = c.height / 2;
+
+    if(Math.abs(x - centerX) < 80) x += 120;
+    if(Math.abs(y - centerY) < 80) y += 120;
 
     non.style.left = x + "px";
     non.style.top = y + "px";
 }
 
-// événements
-non.addEventListener("mouseenter", teleport);
-non.addEventListener("click", (e) => {
-    e.preventDefault();
+/* 🚀 IMPORTANT :
+   on déclenche AVANT que le clic soit confirmé */
+non.addEventListener("pointerdown", (e) => {
     teleport();
-});
-non.addEventListener("touchstart", (e) => {
     e.preventDefault();
-    teleport();
 });
 
 placeInitial();
