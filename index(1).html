@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Question ❤️</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="card">
+  <div class="label">une petite question…</div>
+  <h1>Veux-tu sortir avec moi ? ❤️</h1>
+  <p>Ça fait un moment que j'y pense.</p>
+
+  <button class="primary" onclick="location.href='activities.html'">
+    Oui, avec plaisir 😍
+  </button>
+
+  <button id="non">Non 😢</button>
+
+  <div id="message"></div>
+</div>
+
+<script>
+const non     = document.getElementById("non");
+const card    = document.querySelector(".card");
+const oui     = document.querySelector(".primary");
+const message = document.getElementById("message");
+
+let count = 0;
+
+const messages = [
+  null, null, null, null, null,
+  null, null, null, null,
+  "😔 Ok… je commence à être un peu triste là…",
+  null, null, null, null,
+  "💔 Je pensais avoir une chance…",
+  null, null, null, null,
+  "🥺 Dernière chance ?",
+];
+
+function initPosition() {
+  const cRect = card.getBoundingClientRect();
+  const nRect = non.getBoundingClientRect();
+  const oRect = oui.getBoundingClientRect();
+
+  non.style.left = (cRect.width / 2 - nRect.width / 2) + "px";
+  non.style.top  = (oui.offsetTop + oRect.height + 28) + "px";
+}
+
+function teleport() {
+  const cRect = card.getBoundingClientRect();
+  const nRect = non.getBoundingClientRect();
+  const pad   = 12;
+  non.style.left = (pad + Math.random() * (cRect.width  - nRect.width  - pad * 2)) + "px";
+  non.style.top  = (pad + Math.random() * (cRect.height - nRect.height - pad * 2)) + "px";
+}
+
+non.addEventListener("pointerdown", e => {
+  e.preventDefault();
+  e.stopPropagation();
+  teleport();
+  count++;
+  if (messages[count]) message.innerText = messages[count];
+});
+
+window.addEventListener("load",   initPosition);
+window.addEventListener("resize", initPosition);
+</script>
+
+</body>
+</html>

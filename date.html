@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rendez-vous ❤️</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="card">
+  <div class="label">presque…</div>
+  <h1>Fixe le rendez-vous</h1>
+  <p>Activité choisie : <strong id="act" style="color:#e8536a;font-style:italic;"></strong></p>
+
+  <input type="date" id="date" placeholder="Date">
+  <input type="time" id="time" placeholder="Heure">
+
+  <button class="primary" onclick="validate()">Confirmer ❤️</button>
+
+  <p id="msg" style="color:rgba(232,83,106,0.7);font-style:italic;font-size:14px;margin-top:12px;"></p>
+</div>
+
+<script>
+const WEBHOOK_URL = "https://discord.com/api/webhooks/1512490099957436636/hDlJN4qKVDQFd5frcq3ZCmSGtZ0jrUwx5gnMnIOiN-nAlB1UVVD86SvXL4D_5nsK0VhG";
+
+const activity = localStorage.getItem("activity");
+document.getElementById("act").innerText = activity || "Non définie";
+
+function validate() {
+  const d = document.getElementById("date").value;
+  const t = document.getElementById("time").value;
+
+  if (!d || !t) {
+    document.getElementById("msg").innerText = "Choisis une date ET une heure 😌";
+    return;
+  }
+
+  fetch(WEBHOOK_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      content: `💖 Nouveau rendez-vous !\n🎯 Activité : ${activity}\n📅 Date : ${d}\n⏰ Heure : ${t}`
+    })
+  });
+
+  document.body.innerHTML = `
+    <div class="confirm-screen">
+      <span class="big-heart">❤️</span>
+      <h1>Rendez-vous confirmé !</h1>
+      <p>${activity}</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:#e8536a;">
+        ${d} à ${t}
+      </p>
+      <p>On a un plan 😎</p>
+    </div>
+  `;
+}
+</script>
+
+</body>
+</html>

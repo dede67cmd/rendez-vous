@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Activités ❤️</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="card">
+  <div class="label">super !</div>
+  <h1>On fait quoi ensemble ?</h1>
+  <p>Choisis l'activité qui te fait envie.</p>
+
+  <button class="activity-btn" onclick="choose('🚶 Balade dans Strasbourg')">
+    🚶 Balade dans Strasbourg
+  </button>
+  <button class="activity-btn" onclick="choose('📚 Réviser infin')">
+    📚 Réviser infin
+  </button>
+  <button class="activity-btn" onclick="choose('🍷 Boire un verre')">
+    🍷 Boire un verre
+  </button>
+  <button class="activity-btn" onclick="choose('🏐 Faire du volley')">
+    🏐 Faire du volley
+  </button>
+</div>
+
+<script>
+function choose(activity) {
+  localStorage.setItem("activity", activity);
+  location.href = "date.html";
+}
+</script>
+
+</body>
+</html>
