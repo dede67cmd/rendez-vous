@@ -22,7 +22,6 @@ body{
     border-radius:20px;
     text-align:center;
     box-shadow:0 10px 30px rgba(0,0,0,0.2);
-    position:relative;
 }
 
 h1{
@@ -60,13 +59,11 @@ button{
 <div class="card">
     <h1>Veux-tu sortir avec moi ? ❤️</h1>
 
-    <button id="oui" onclick="location.href='date.html'">
+    <button id="oui" onclick="location.href='activities.html'">
         Oui 😍
     </button>
 
-    <button id="non">
-        Non 😢
-    </button>
+    <button id="non">Non 😢</button>
 </div>
 
 <script>
@@ -81,7 +78,6 @@ non.style.left = currentX + "px";
 non.style.top = currentY + "px";
 
 document.addEventListener("mousemove", (e) => {
-
     const rect = non.getBoundingClientRect();
 
     const dx = e.clientX - (rect.left + rect.width / 2);
