@@ -4,11 +4,21 @@
 <meta charset="UTF-8">
 <title>Question ❤️</title>
 <link rel="stylesheet" href="style.css">
+
+<style>
+.card{
+    position:relative; /* IMPORTANT */
+    overflow:hidden;
+}
+#non{
+    position:absolute;
+}
+</style>
 </head>
 
 <body>
 
-<div class="card">
+<div class="card" id="card">
     <h1>Veux-tu sortir avec moi ? ❤️</h1>
 
     <button class="primary" onclick="location.href='activities.html'">
@@ -20,33 +30,34 @@
 
 <script>
 const non = document.getElementById("non");
-const card = document.querySelector(".card");
+const card = document.getElementById("card");
 
 let targetX = 0;
 let targetY = 0;
 let currentX = 0;
 let currentY = 0;
 
-function initPosition(){
-    const cardRect = card.getBoundingClientRect();
-    const btnRect = non.getBoundingClientRect();
+function init(){
+    const c = card.getBoundingClientRect();
+    const b = non.getBoundingClientRect();
 
-    // position de départ logique dans la carte
-    currentX = cardRect.left + (cardRect.width / 2) - (btnRect.width / 2);
-    currentY = cardRect.top + (cardRect.height / 2) + 40;
+    // POSITION INIT LOGIQUE (dans la carte)
+    currentX = (c.width / 2) - (b.width / 2);
+    currentY = (c.height / 2) + 30;
 
     targetX = currentX;
     targetY = currentY;
 
-    non.style.position = "absolute";
     non.style.left = currentX + "px";
     non.style.top = currentY + "px";
 }
 
-// animation fluide
 function animate(){
-    currentX += (targetX - currentX) * 0.12;
-    currentY += (targetY - currentY) * 0.12;
+    // ⚡ PLUS RAPIDE
+    const speed = 0.25;
+
+    currentX += (targetX - currentX) * speed;
+    currentY += (targetY - currentY) * speed;
 
     non.style.left = currentX + "px";
     non.style.top = currentY + "px";
@@ -54,42 +65,34 @@ function animate(){
     requestAnimationFrame(animate);
 }
 
-// téléportation dans la carte uniquement
 function teleport(){
-    const cardRect = card.getBoundingClientRect();
-    const btnRect = non.getBoundingClientRect();
+    const c = card.getBoundingClientRect();
+    const b = non.getBoundingClientRect();
 
     const padding = 10;
 
-    const minX = cardRect.left + padding;
-    const maxX = cardRect.right - btnRect.width - padding;
+    const maxX = c.width - b.width - padding;
+    const maxY = c.height - b.height - padding;
 
-    const minY = cardRect.top + padding;
-    const maxY = cardRect.bottom - btnRect.height - padding;
-
-    targetX = Math.random() * (maxX - minX) + minX;
-    targetY = Math.random() * (maxY - minY) + minY;
+    // IMPORTANT : coordonnées RELATIVES à la carte
+    targetX = padding + Math.random() * maxX;
+    targetY = padding + Math.random() * maxY;
 }
 
-// interactions
+// triggers
 non.addEventListener("mouseenter", teleport);
-
 non.addEventListener("click", (e) => {
     e.preventDefault();
     teleport();
 });
-
 non.addEventListener("touchstart", (e) => {
     e.preventDefault();
     teleport();
 });
 
-// init
-initPosition();
+init();
 animate();
-
-// sécurité resize
-window.addEventListener("resize", initPosition);
+window.addEventListener("resize", init);
 </script>
 
 </body>
