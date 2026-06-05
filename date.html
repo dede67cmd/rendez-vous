@@ -3,52 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Rendez-vous ❤️</title>
-
-<style>
-body{
-    margin:0;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-family:Arial;
-    background: linear-gradient(135deg, #ffecd2, #fcb69f);
-}
-
-.card{
-    background:white;
-    padding:40px;
-    border-radius:20px;
-    text-align:center;
-    box-shadow:0 10px 30px rgba(0,0,0,0.2);
-    width:340px;
-}
-
-input{
-    width:100%;
-    padding:10px;
-    margin:10px 0;
-    border-radius:10px;
-    border:1px solid #ddd;
-    font-size:16px;
-}
-
-button{
-    width:100%;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    background:#ff4d6d;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
-}
-
-#msg{
-    margin-top:10px;
-    color:#333;
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -61,29 +16,31 @@ button{
     <input type="date" id="date">
     <input type="time" id="time">
 
-    <button onclick="valider()">Valider ❤️</button>
+    <button class="primary" onclick="validate()">Valider ❤️</button>
 
     <p id="msg"></p>
 </div>
 
 <script>
-const activite = localStorage.getItem("activite");
-document.getElementById("act").innerText = activite || "Non définie";
+document.getElementById("act").innerText =
+    localStorage.getItem("activity") || "Non définie";
 
-function valider(){
-    const date = document.getElementById("date").value;
-    const time = document.getElementById("time").value;
+function validate(){
+    const d = document.getElementById("date").value;
+    const t = document.getElementById("time").value;
+    const act = localStorage.getItem("activity");
 
-    if(!date || !time){
-        document.getElementById("msg").innerText = "Choisis une date ET une heure 😌";
+    if(!d || !t){
+        document.getElementById("msg").innerText =
+            "Choisis une date ET une heure 😌";
         return;
     }
 
     document.body.innerHTML = `
         <div style="text-align:center;font-family:Arial">
             <h1>💖 Rendez-vous confirmé !</h1>
-            <p><b>${activite}</b></p>
-            <p>${date} à ${time}</p>
+            <p>${act}</p>
+            <p>${d} à ${t}</p>
             <h2>On a un plan 😎</h2>
         </div>
     `;
