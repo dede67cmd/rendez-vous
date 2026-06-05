@@ -102,3 +102,9 @@ body{
     position: fixed;
     width: 100%;
 }
+body{
+    margin: 0;
+    overflow: hidden;
+    height: 100vh;
+    height: 100dvh; /* 🔥 mobile moderne (corrige iOS/Android) */
+}
