@@ -23,44 +23,36 @@ const non = document.getElementById("non");
 const card = document.querySelector(".card");
 const oui = document.querySelector(".primary");
 
-/* 📍 POSITION INIT PROPRE */
+/* 📍 position initiale propre */
 function initPosition(){
     const cardRect = card.getBoundingClientRect();
-    const ouiRect = oui.getBoundingClientRect();
     const nonRect = non.getBoundingClientRect();
 
-    // centre horizontal de la carte
     const x = (cardRect.width / 2) - (nonRect.width / 2);
-
-    // sous le bouton OUI (dans la carte)
-    const y = oui.offsetTop + ouiRect.height + 20;
+    const y = oui.offsetTop + 60;
 
     non.style.left = x + "px";
     non.style.top = y + "px";
 }
 
-/* 🚀 TP PARTOUT SUR L’ÉCRAN */
+/* 🚀 TP dans la carte uniquement */
 function teleport(){
-    const b = non.getBoundingClientRect();
-
-    // 🔥 viewport réel stable (mobile safe)
-    const vw = document.documentElement.clientWidth;
-    const vh = document.documentElement.clientHeight;
+    const cardRect = card.getBoundingClientRect();
+    const nonRect = non.getBoundingClientRect();
 
     const padding = 10;
 
-    let x = Math.random() * (vw - b.width - padding * 2) + padding;
-    let y = Math.random() * (vh - b.height - padding * 2) + padding;
+    const maxX = cardRect.width - nonRect.width - padding;
+    const maxY = cardRect.height - nonRect.height - padding;
 
-    // 🧠 CLAMP (sécurité anti hors écran)
-    x = Math.max(padding, Math.min(x, vw - b.width - padding));
-    y = Math.max(padding, Math.min(y, vh - b.height - padding));
+    const x = padding + Math.random() * maxX;
+    const y = padding + Math.random() * maxY;
 
     non.style.left = x + "px";
     non.style.top = y + "px";
 }
 
-/* ⚡ fuite instantanée */
+/* ⚡ interaction instantanée */
 non.addEventListener("pointerdown", (e) => {
     teleport();
     e.preventDefault();
