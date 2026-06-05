@@ -1,65 +1,30 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<title>Question ❤️</title>
-<link rel="stylesheet" href="style.css">
-
-<style>
-#message{
-    margin-top:15px;
-    color:#444;
-    font-size:14px;
-}
-
-#non{
-    position:absolute;
-}
-</style>
-</head>
-
-<body>
-
-<div class="card">
-    <h1>Veux-tu sortir avec moi ? ❤️</h1>
-
-    <button class="primary" onclick="location.href='activities.html'">
-        Oui 😍
-    </button>
-
-    <button id="non">Non 😢</button>
-
-    <div id="message"></div>
-</div>
-
-<script>
 const non = document.getElementById("non");
 const card = document.querySelector(".card");
-const message = document.getElementById("message");
+const oui = document.querySelector(".primary");
 
-let count = 0;
+function initPosition(){
+    const cardRect = card.getBoundingClientRect();
+    const ouiRect = oui.getBoundingClientRect();
+    const nonRect = non.getBoundingClientRect();
 
-/* 📍 position initiale propre */
-function init(){
-    const c = card.getBoundingClientRect();
-    const b = non.getBoundingClientRect();
+    const padding = 10;
 
-    const x = (c.width / 2) - (b.width / 2);
-    const y = 140;
+    // 🔥 position sous OUI (avec marge + sécurité)
+    const x = (cardRect.width / 2) - (nonRect.width / 2);
+    const y = oui.offsetTop + ouiRect.height + 25;
 
     non.style.left = x + "px";
     non.style.top = y + "px";
 }
 
-/* 🚀 téléportation dans la carte */
 function teleport(){
-    const c = card.getBoundingClientRect();
-    const b = non.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const nonRect = non.getBoundingClientRect();
 
     const padding = 10;
 
-    const maxX = c.width - b.width - padding;
-    const maxY = c.height - b.height - padding;
+    const maxX = cardRect.width - nonRect.width - padding;
+    const maxY = cardRect.height - nonRect.height - padding;
 
     const x = padding + Math.random() * maxX;
     const y = padding + Math.random() * maxY;
@@ -68,52 +33,13 @@ function teleport(){
     non.style.top = y + "px";
 }
 
-/* ⚡ clic sur NON */
+// ⚡ évite le clic direct sur OUI
 non.addEventListener("pointerdown", (e) => {
     e.preventDefault();
-
-    count++;
+    e.stopPropagation();
     teleport();
-
-    if(count === 2){
-        message.innerText = "😔 Ok... je commence à être un peu triste là...";
-    }
-
-    if(count === 3){
-        message.innerText = "💔 Je pensais avoir une chance...";
-    }
-
-    if(count === 5){
-        message.innerText = "🥺 dernière chance ?";
-    }
-
-    if(count === 10){
-    document.body.innerHTML = `
-        <div style="
-            position:fixed;
-            top:0;
-            left:0;
-            width:100vw;
-            height:100vh;
-            background:black;
-            color:white;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            font-family:Arial;
-            text-align:center;
-        ">
-            <h1>💔 ...</h1>
-        </div>
-    `;
-}
 });
 
-init();
-
-/* sécurité resize */
-window.addEventListener("resize", init);
-</script>
-
-</body>
-</html>
+// ⏳ IMPORTANT : attendre que tout soit rendu
+window.addEventListener("load", initPosition);
+window.addEventListener("resize", initPosition);
